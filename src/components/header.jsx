@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router";
 export const Header = () => {
 
     return (
-      <header className="flex justify-between items-center bg-amber-900 text-[white] sticky top-0;">
+      <header className="flex justify-between items-center bg-blue-500 text-[white] sticky top-0;">
         <Link to="/" className="title">
           <h1 className="font-bold">VerdeAprende</h1>
         </Link>

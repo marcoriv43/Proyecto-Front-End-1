@@ -1,11 +1,24 @@
-import { Link } from "react-router"
-import { Header } from "../components/header"
-
+import { Header } from "../components/header";
+import { NewsFeed } from "../components/NewsFeed";
 
 const Home = () => {
   return (
-      <Header  />
-  )
-}
+    <div>
+      <div>
+        <Header />
+      </div>
+      <div>
+        <div>
+        <h1 className="text-4xl ">Noticias</h1>
+        <NewsFeed />
+        </div>
+        <div>
+          <h1>Hola mundo</h1>
+        </div>
 
-export default Home
+      </div>
+    </div>
+  );
+};
+
+export default Home;
