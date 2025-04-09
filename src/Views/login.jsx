@@ -1,4 +1,5 @@
-import { Link } from "react-router";
+import { useForm } from "react-hook-form";
+import { Form, Link } from "react-router";
 
 export const Login = () => {
   return (
@@ -10,22 +11,7 @@ export const Login = () => {
             Si ya eres miembro, inicia sesión fácilmente
           </p>
 
-          {/* form */}
-          {LoginForm /}
-
-          <div className="mt-5 text-xs border-b border-[#002D74] py-4 text-[#002D74]">
-            <a href="#">Olvide mi contraseña</a>
-          </div>
-
-          {/* REGISTRARSE */}
-          <div className="mt-3 text-xs flex justify-between items-center text-[#002D74]">
-            <p>¿No tienes una cuenta?</p>
-            <Link to={"/register"}>
-              <button class="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
-                Registrarse
-              </button>
-            </Link>
-          </div>
+          <LoginForm />
         </div>
       </div>
       <div>
@@ -52,29 +38,63 @@ export default Login;
 
 const LoginForm = () => {
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+    const { register, handleSubmit, formState: {errors} } = useForm()
 
-  console.log(watch("example"))
+    const inputStyles = "py-2 px-3 border-b-1 w-full outline-none focus:border-b-green-800"
+    const alertStyles = "text-xs px-[5px] py-[4px] bg-red-700 rounded text-white"
+
+    const submitHandler = (data) => {
+      console.log(data)
+    } 
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+    <>
+      <form>
+        <input className={inputStyles} type="email" {...register("email", {
+          required: {
+            value: true,
+            message: "Coloca un correo"
+          },
+          pattern: {
+            value: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm,
+            message: "Coloca un correo valido"
+          }
+        })}/>
 
-      <input className="p-2 mt-8 rounded-xl border" {...register("email", { 
-        required: true, 
-        pattern: 
-      })} />
+        { errors.email && <div className= {alertStyles}>{errors.email.message}</div> }  
 
-  
-      <input className="p-2 rounded-xl border w-full" {...register("password", { required: true })} />        
-      {errors.exampleRequired && <span>This field is required</span>}
+        <input className={inputStyles} type="password" {...register("password", {
+          required: {
+            value: true,
+            message: "Coloca tu contraseña"
+          },
+          maxLength: {
+            value: 5,
+            message: "No puede tener mas de 5 caracteres"
+          }
+          
+        })}/>
 
-      <input  className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300" type="submit" />
-    </form>
-    )
+    { errors.password && <div className= {alertStyles}>{errors.password.message}</div> }
+
+      </form>
+
+      <div>
+        <button className="bg-green-700 rounded text-white py-2 px-3 hover:bg-green-600 duration-200 cursor-pointer"
+        onClick={handleSubmit(submitHandler)}
+        >
+          Iniciar Sesión
+          </button>
+        <Link to={"/register"}>
+          <button class="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
+            Registrarme
+          </button>
+        </Link>
+      </div>
+
+      <div className="mt-5 text-xs border-b border-[#002D74] py-4 text-[#002D74]">
+        <a href="#">Olvide mi contraseña</a>
+      </div>
+    </>
+  )
 };
