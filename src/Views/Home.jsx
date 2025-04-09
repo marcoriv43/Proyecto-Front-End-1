@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 import { Header } from "../components/header";
 import { NewsFeed } from "../components/NewsFeed";
-=======
-import { Link } from "react-router"
-import { Header } from "../components/header"
-import { MenuDes} from "../components/menuDes"
-
->>>>>>> a78731ffc7ff857ed149a3e061147e27dda25542
 
 const Home = () => {
   return (
     <div>
-<<<<<<< HEAD
       <div>
         <Header />
       </div>
@@ -30,12 +22,3 @@ const Home = () => {
 };
 
 export default Home;
-=======
-      <Header  />
-      < MenuDes  />
-      </div>
-  )
-}
-export default Home
-
->>>>>>> a78731ffc7ff857ed149a3e061147e27dda25542
