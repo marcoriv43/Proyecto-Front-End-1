@@ -26,7 +26,7 @@ export const NewsFeed = () => {
   if (loading) return <p className="text-center mt-10 text-gray-500">Cargando noticias...</p>;
 
   return (
-    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" >
       {articles.map((article, index) => (
         <div key={index} className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
           {article.urlToImage && (

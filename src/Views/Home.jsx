@@ -1,5 +1,7 @@
 import { Header } from "../components/header";
 import { NewsFeed } from "../components/NewsFeed";
+import { WeatherCard } from "../components/WeatherCard";
+import UbicacionMapa from "../components/UbicacionMapa";
 
 const Home = () => {
   return (
@@ -7,15 +9,21 @@ const Home = () => {
       <div>
         <Header />
       </div>
-      <div>
-        <div>
-        <h1 className="text-4xl ">Noticias</h1>
+      <div className="flex flex-row">
+        <div className="w-3/4 p-4">
+        <h1 className="text-6xl text-center">Noticias</h1>
+        <br />
         <NewsFeed />
-        </div>
-        <div>
-          <h1>Hola mundo</h1>
-        </div>
-
+        </div >
+        <div className="w-1/4 p-4">
+          <div className="p-4 ">
+            <WeatherCard />
+          </div>
+          <div className="p-4 flex flex-col">
+            <h1 className="text-2xl font-bold mb-4">Mi ubicación actual</h1>
+            <UbicacionMapa />
+          </div>
+        </div>  
       </div>
     </div>
   );
