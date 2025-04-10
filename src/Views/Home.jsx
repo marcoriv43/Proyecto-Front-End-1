@@ -57,7 +57,8 @@ const Home = () => {
       </div>
       <div>
         <Footer />
-      </div>
+      </div>s
+
     </div>
   );
 };
