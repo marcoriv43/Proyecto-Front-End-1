@@ -4,13 +4,7 @@ import {signOut } from "firebase/auth";
 import { auth } from "../functions/firebase"
 
 export const Header = () => {
-
-<<<<<<< HEAD
-=======
-    return (
-      <header className=" bg-green-900 items-center text-[white] sticky top-0 h-20 place-content-center">
-        <div className="container mx-auto flex justify-between">
->>>>>>> b21931a750dd79cda873502a7f5d2ea497e7114f
+ 
 
   const { user } = useOutletContext();
 
