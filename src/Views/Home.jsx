@@ -2,6 +2,8 @@ import { Header } from "../components/header";
 import { NewsFeed } from "../components/NewsFeed";
 import { WeatherCard } from "../components/WeatherCard";
 import UbicacionMapa from "../components/UbicacionMapa";
+import Footer from "../components/Footer";
+
 
 const Home = () => {
   return (
@@ -25,6 +27,8 @@ const Home = () => {
           </div>
         </div>  
       </div>
+      <Footer /> 
+
     </div>
   );
 };
