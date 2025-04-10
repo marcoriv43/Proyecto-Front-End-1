@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router";
 export const Header = () => {
 
     return (
-      <header className=" bg-blue-500 items-center text-[white] sticky top-0 h-20 place-content-center">
+      <header className=" bg-green-900 items-center text-[white] sticky top-0 h-20 place-content-center">
         <div className="container mx-auto flex justify-between">
 
           <span className="font-semibold text-5xl">
