@@ -12,7 +12,7 @@ export const Login = () => {
   return (
     <div className="w-full h-screen grid grid-cols-2">
       <div className="flex items-center justify-center bg-gray-200">
-        <div className="md:w-1/2 px-8 md:px-16">
+        <div className="px-8 text-center w-sm">
           <h2 className="font-bold text-2xl text-[#002D74]">Iniciar sesion</h2>
           <p className="text-xs mt-4 text-[#002D74]">
             Si ya eres miembro, inicia sesión fácilmente
@@ -66,7 +66,7 @@ const LoginForm = () => {
   return (
     <>
       <form>
-        <input className={inputStyles} type="email" {...register("email", {
+        <input className={inputStyles} name="email" placeholder="Nombre" type="email" {...register("email", {
           required: {
             value: true,
             message: "Coloca un correo"
@@ -79,14 +79,14 @@ const LoginForm = () => {
 
         {errors.email && <div className={alertStyles}>{errors.email.message}</div>}
 
-        <input className={inputStyles} type="password" {...register("password", {
+        <input className={inputStyles} type="password" name="email"placeholder="Email" {...register("password", {
           required: {
             value: true,
             message: "Coloca tu contraseña"
           },
           maxLength: {
-            value: 5,
-            message: "No puede tener mas de 5 caracteres"
+            value: 12,
+            message: "No puede tener mas de 12 caracteres"
           }
 
         })} />
@@ -97,7 +97,7 @@ const LoginForm = () => {
         {fireBaseError && <div className={alertStyles}>{fireBaseError}</div>}
       </form>
 
-      <div>
+      <div className="flex justify-between">
         <button className="bg-green-700 rounded text-white py-2 px-3 hover:bg-green-600 duration-200 cursor-pointer"
           onClick={handleSubmit(submitHandler)}
         >

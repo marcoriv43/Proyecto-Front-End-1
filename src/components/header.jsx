@@ -9,7 +9,7 @@ export const Header = () => {
   const { user } = useOutletContext();
 
   return (
-    <header className=" bg-blue-500 items-center text-[white] sticky top-0 h-20 place-content-center">
+    <header className=" bg-green-800 items-center text-[white] sticky top-0 h-20 place-content-center">
       <div className="container mx-auto flex justify-between">
 
         <span className="font-semibold text-5xl">
