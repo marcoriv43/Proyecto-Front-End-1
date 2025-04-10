@@ -91,7 +91,7 @@ const RegisterForm = () => {
               message: "Coloca una clave"
             },
             maxLength: {
-              value: 5,
+              value: 8,
               message: "Solo puede tener un maximo de 5 caracteres "
             }
           })}
