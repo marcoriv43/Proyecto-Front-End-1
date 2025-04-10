@@ -1,16 +1,19 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import { useOutletContext, useNavigate } from "react-router";
+import { auth } from "../functions/firebase"
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+
 
 const Register = () => {
-
-
   return (
     <div className="w-full h-screen grid grid-cols-2">
       <div className="flex items-center justify-center bg-gray-200">
         <div className="px-8 text-center w-sm">
           <h2 className="font-bold text-2xl mb-4 text-[#002D74]">Crea una cuenta</h2>
 
-            <RegisterForm  />
+          <RegisterForm />
 
           <div className="flex w-full justify-between text-xs">
             <a href="#">Olvide mi contraseña</a>
@@ -31,14 +34,25 @@ export default Register;
 const RegisterForm = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const { setUser } = useOutletContext()
+  const [ fireBaseError, setFireBaseError ] = useState(null);
+  const navigate = useNavigate()
+
+  const submitHandler = async (data) => {
+    try {
+      const registerUser = await createUserWithEmailAndPassword(auth, data.email, data.password)
+      setUser(registerUser.user)
+      navigate("/")
+    } catch (error) {
+      setFireBaseError(String(error))
+    }
+  }
+
+
+
 
   const inputStyles = "py-2 px-3 border-b-1 w-full outline-none focus:border-b-green-800"
   const alertStyles = "text-xs px-[5px] py-[4px] bg-red-700 rounded text-white"
-
-  const submitHandler = (data) => {
-    console.log(data)
-  } 
-
   return (
     <>
       <form className="flex flex-col gap-4">
@@ -91,18 +105,20 @@ const RegisterForm = () => {
               message: "Coloca una clave"
             },
             maxLength: {
-              value: 8,
-              message: "Solo puede tener un maximo de 5 caracteres "
+              value: 12,
+              message: "Solo puede tener un maximo de 12 caracteres "
             }
           })}
         />
 
         {errors.password && <div className={alertStyles}>{errors.password.message}</div>}
 
+
+        {fireBaseError && <div className={alertStyles}>{fireBaseError}</div>}
       </form>
       <div className="flex justify-between">
         <button className="bg-green-700 rounded text-white py-2 px-3 hover:bg-green-600 duration-200 cursor-pointer"
-        onClick={handleSubmit(submitHandler)}
+          onClick={handleSubmit(submitHandler)}
         >
           Registrarme
         </button>

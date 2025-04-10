@@ -1,5 +1,12 @@
+
+
 import { useForm } from "react-hook-form";
-import { Form, Link } from "react-router";
+
+
+import { Link, useNavigate, useOutletContext } from "react-router";
+import { auth } from "../functions/firebase"
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 
 export const Login = () => {
   return (
@@ -38,14 +45,23 @@ export default Login;
 
 const LoginForm = () => {
 
-    const { register, handleSubmit, formState: {errors} } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [fireBaseError, setFireBaseError] = useState(null);
+  const { setUser } = useOutletContext()
+  const navigate = useNavigate()
 
-    const inputStyles = "py-2 px-3 border-b-1 w-full outline-none focus:border-b-green-800"
-    const alertStyles = "text-xs px-[5px] py-[4px] bg-red-700 rounded text-white"
+  const inputStyles = "py-2 px-3 border-b-1 w-full outline-none focus:border-b-green-800"
+  const alertStyles = "text-xs px-[5px] py-[4px] bg-red-700 rounded text-white"
 
-    const submitHandler = (data) => {
-      console.log(data)
-    } 
+  const submitHandler = async (data) => {
+    try {
+       const loggedUser = await signInWithEmailAndPassword(auth, data.email, data.password)
+       setUser(loggedUser.user)
+       navigate("/")
+    } catch (error) {
+      setFireBaseError(String(error))
+    }
+  }
 
   return (
     <>
@@ -59,9 +75,9 @@ const LoginForm = () => {
             value: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm,
             message: "Coloca un correo valido"
           }
-        })}/>
+        })} />
 
-        { errors.email && <div className= {alertStyles}>{errors.email.message}</div> }  
+        {errors.email && <div className={alertStyles}>{errors.email.message}</div>}
 
         <input className={inputStyles} type="password" {...register("password", {
           required: {
@@ -72,19 +88,21 @@ const LoginForm = () => {
             value: 5,
             message: "No puede tener mas de 5 caracteres"
           }
-          
-        })}/>
 
-    { errors.password && <div className= {alertStyles}>{errors.password.message}</div> }
+        })} />
 
+        {errors.password && <div className={alertStyles}>{errors.password.message}</div>}
+
+
+        {fireBaseError && <div className={alertStyles}>{fireBaseError}</div>}
       </form>
 
       <div>
         <button className="bg-green-700 rounded text-white py-2 px-3 hover:bg-green-600 duration-200 cursor-pointer"
-        onClick={handleSubmit(submitHandler)}
+          onClick={handleSubmit(submitHandler)}
         >
           Iniciar Sesión
-          </button>
+        </button>
         <Link to={"/register"}>
           <button class="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
             Registrarme
